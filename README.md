@@ -199,3 +199,59 @@ while True:
     else:
         print("Invalid choice. Please try again.")
 
+
+
+
+# Task 3-Basic Text File Encryption and Decryption using XOR
+
+# XOR function
+def xor_encrypt_decrypt(data, key):
+    result = bytearray()
+
+    for byte in data:
+        result.append(byte ^ key)
+
+    return result
+
+# Main Program
+print("===== Basic Text File Encryption =====")
+
+input_file = input("Enter the text file name (e.g., sample.txt): ")
+key = int(input("Enter an encryption key (0-255): "))
+
+try:
+    # Read original file
+    with open(input_file, "rb") as file:
+        data = file.read()
+
+    # Encrypt data
+    encrypted_data = xor_encrypt_decrypt(data, key)
+
+    # Save encrypted file
+    encrypted_file = "encrypted_file.bin"
+    with open(encrypted_file, "wb") as file:
+        file.write(encrypted_data)
+
+    print("File encrypted successfully!")
+    print("Encrypted file saved as:", encrypted_file)
+
+    # Read encrypted file
+    with open(encrypted_file, "rb") as file:
+        encrypted_data = file.read()
+
+    # Decrypt data
+    decrypted_data = xor_encrypt_decrypt(encrypted_data, key)
+
+    # Save decrypted file
+    decrypted_file = "decrypted_file.txt"
+    with open(decrypted_file, "wb") as file:
+        file.write(decrypted_data)
+
+    print("File decrypted successfully!")
+    print("Decrypted file saved as:", decrypted_file)
+
+except FileNotFoundError:
+    print("Error: File not found!")
+except ValueError:
+    print("Please enter a valid key between 0 and 255.")
+
