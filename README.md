@@ -135,3 +135,67 @@ for i in range(count):
 
     print(f"Password {i + 1}: {password}")
 
+
+
+
+# Task 4-simple_login_system
+import os
+
+FILE_NAME = "users.txt"
+
+# Create file if it doesn't exist
+if not os.path.exists(FILE_NAME):
+    open(FILE_NAME, "w").close()
+
+# Register function
+def register():
+    username = input("Enter a username: ")
+    password = input("Enter a password: ")
+
+    # Check if username already exists
+    with open(FILE_NAME, "r") as file:
+        for line in file:
+            user, pwd = line.strip().split(",")
+            if user == username:
+                print("Username already exists!")
+                return
+
+    # Save new user
+    with open(FILE_NAME, "a") as file:
+        file.write(f"{username},{password}\n")
+
+    print("Registration successful!")
+
+# Login function
+def login():
+    username = input("Enter your username: ")
+    password = input("Enter your password: ")
+
+    with open(FILE_NAME, "r") as file:
+        for line in file:
+            user, pwd = line.strip().split(",")
+            if user == username and pwd == password:
+                print("Login successful! Welcome,", username)
+                return
+
+    print("Login failed! Invalid username or password.")
+
+# Main menu
+while True:
+    print("\n===== LOGIN SYSTEM =====")
+    print("1. Register")
+    print("2. Login")
+    print("3. Exit")
+
+    choice = input("Enter your choice (1-3): ")
+
+    if choice == "1":
+        register()
+    elif choice == "2":
+        login()
+    elif choice == "3":
+        print("Thank you!")
+        break
+    else:
+        print("Invalid choice. Please try again.")
+
