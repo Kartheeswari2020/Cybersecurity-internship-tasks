@@ -48,7 +48,7 @@ print("Decrypted Message:", decrypted)
 
 
 
-# Task 1-Password Strength Checker
+# Task 2-Password Strength Checker
 
 import string
 
